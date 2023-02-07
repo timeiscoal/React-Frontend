@@ -1,7 +1,14 @@
 import {VStack , Box , Image , Grid ,Text , Button , HStack,useColorModeValue} from "@chakra-ui/react"
 import {FaRegHeart , FaStar} from "react-icons/fa"
 
-export default function Room(){
+interface IRoomProps{
+    name:string;
+    city:string;
+    rating:number;
+    price:number;
+}
+
+export default function Room({name,city,rating,price}:IRoomProps){
     const gray = useColorModeValue("gray.600","gray.300")
     return(
 
@@ -15,25 +22,25 @@ export default function Room(){
         <Box>
             <Grid gap={2} templateColumns={"6fr 1fr"}>
                 <Text as="b" noOfLines={1} fontSize="">
-                    경상북도 고양이, 경북 고양이, 경산 고양이, 첼린지
+                    {name}
                 </Text>
                 <HStack _hover={{
                     color:"red.400",
                 }} spacing={1} alignItems={"center"}>
                     <FaStar size={15} />
-                    <Text>5.0</Text>
+                    <Text>{rating}</Text>
                 </HStack>
 
             </Grid>
             <Text fontSize={"sm"} color={gray}>
-                    Seoul, S.Korea
+                    {city}
             </Text>
 
         </Box>
 
 
         <Text fontSize={"sm"} color={gray}>
-            <Text as="b">$72</Text> / night
+            <Text as="b">${price}</Text> / night
         </Text>
 
     </VStack>
