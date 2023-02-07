@@ -17,7 +17,9 @@ export default function Room(){
                 <Text as="b" noOfLines={1} fontSize="">
                     경상북도 고양이, 경북 고양이, 경산 고양이, 첼린지
                 </Text>
-                <HStack spacing={1}>
+                <HStack _hover={{
+                    color:"red.400",
+                }} spacing={1} alignItems={"center"}>
                     <FaStar size={15} />
                     <Text>5.0</Text>
                 </HStack>
