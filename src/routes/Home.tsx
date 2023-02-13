@@ -1,26 +1,19 @@
 import {Grid, Skeleton ,Box ,SkeletonText} from "@chakra-ui/react"
 import { useEffect,useState } from "react"
 import Room from "../components/Room"
+import{useQuery} from "@tanstack/react-query"
+import { getRooms } from "../api";
 
 interface IRoom {
     name:string;
     city:string;
     rating:number;
     price:number;
+    pk:number;
 }
 
 export default function Home(){
-    const [isLoading, setIsLoading] = useState(true);
-    const [rooms, setRooms] = useState<IRoom[]>([]);
-    const fectRoom = async() =>{
-        const response = await fetch("http://127.0.0.1:8000/rooms/");
-        const json = await response.json();
-        setRooms(json)
-        setIsLoading(false)
-
-    }
-
-    useEffect(() =>{fectRoom()},[])
+    const {isLoading, data} = useQuery<IRoom[]>(["rooms"], getRooms);
     return (
 
         <Grid my={10} px={{base:10,lg:40,}} columnGap={4} rowGap={8}  templateColumns={{
@@ -38,7 +31,7 @@ export default function Home(){
                 <Skeleton rounded="2xl" height={280} mb={6}  />
                 <SkeletonText w="50%" noOfLines={3} />
             </Box> : null}
-            {rooms.map(room =><Room name={room.name} city={room.city} rating={room.rating} price={room.price} />)}
+            {data?.map(room =><Room name={room.name} city={room.city} rating={room.rating} price={room.price} pk={room.pk}/>)}
 
         </Grid>
     )
